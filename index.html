@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aura</title>
+  <style>
+    /* General body styling */
+   body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #000 100%);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Make canvas cover the whole background */
+#galaxy {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1; /* behind everything */
+  width: 100%;
+  height: 100%;
+}
+
+   .chat-container {
+  width: 100%;
+  max-width: 900px;
+  height: 90vh;
+  background: none;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+
+  /* ADD THIS */
+  margin-left: 0px;           /* start with sidebar open */
+  transition: margin-left 0.3s ease; /* smooth shift */
+}
+
+
+    .chat-header {
+    /* Glassy blurred effect */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 1px;
+
+    /* Glowing text */
+    text-shadow: 0 0 8px #00ffcc,
+               0 0 16px #00ffcc,
+               0 0 24px #4a00e0;
+}
+
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background: rgba(18, 18, 18, 0.95);
+  backdrop-filter: blur(10px);
+  color: #f1f1f1;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  z-index: 10;
+  overflow-y: auto;
+}
+
+.sidebar h2 {
+  margin: 0 0 15px;
+  font-size: 20px;
+  color: #00ffcc;
+  text-shadow: 0 0 5px #00ffcc;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  padding: 8px 12px;
+  background: #1e1e1e;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sidebar ul li:hover {
+  background: #292929;
+}
+
+/* Shift chat container to the right */
+.chat-container {
+  margin-left: 260px;
+}
+
+
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      gap: 10px;
+    }
+
+    .chat-message {
+      max-width: 70%;
+      padding: 10px 15px;
+      border-radius: 20px;
+      font-size: 16px;
+      animation: fadeIn 0.3s ease;
+      word-wrap: break-word;
+    }
+
+    .user-message {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #4a00e0, #00ffcc);
+      color: #fff;
+      border-bottom-right-radius: 5px;
+      box-shadow: 0 3px 10px rgba(0, 255, 204, 0.4);
+    }
+
+    .bot-message {
+      align-self: flex-start;
+      background: #1e1e1e;
+      color: #f1f1f1;
+      border-bottom-left-radius: 5px;
+      box-shadow: 0 3px 8px rgba(255, 255, 255, 0.05);
+    }
+
+    .welcome-message {
+      text-align: center;
+      font-size: 24px;
+      color: #00ffcc;
+      font-weight: bold;
+      margin: auto;
+    }
+
+    .chat-input {
+      display: flex;
+      padding: 10px;
+      background: none;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid #2a2a2a;
+      background: #121212;
+      color: #f1f1f1;
+      border-radius: 20px;
+      outline: none;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .chat-input input:focus {
+      border-color: #00ffcc;
+      box-shadow: 0 0 8px #00ffcc;
+    }
+
+    .chat-input button {
+      padding: 10px 25px;
+      margin-left: 10px;
+      background: linear-gradient(135deg, #4a00e0, #00ffcc);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .chat-input button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Glowing animation */
+    @keyframes glowAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scrollbar styling */
+    .chat-messages::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb {
+      background: #444;
+      border-radius: 3px;
+    }
+
+    .chat-messages::-webkit-scrollbar-track {
+      background: #1b1b1b;
+    }
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background: none;
+  backdrop-filter: blur(4px);
+  color: #f1f1f1;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  z-index: 10;
+  overflow-y: auto;
+
+  transform: translateX(-260px); /* start hidden */
+  transition: transform 0.3s ease-in-out;
+}
+
+
+
+/* Sidebar toggle button outside, sticking to sidebar edge */
+#toggle-history {
+  position: fixed;
+  top: 50%;
+  left: 0; /* start at screen edge when closed */
+  transform: translateY(-50%) rotate(0deg); /* initial rotation */
+  background: none;
+  border: none;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 50%; /* circular */
+  cursor: pointer;
+  font-size: 24px; /* bigger chevron */
+  transition: left 0.3s ease, transform 0.3s ease; /* smooth movement & rotation */
+  z-index: 20;
+}
+
+.arrow-btn {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%) rotate(0deg);
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #4a00e0, #00ffcc);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 20;
+  transition: transform 0.3s ease, left 0.3s ease;
+}
+
+/* make the arrow using a simple pseudo-element */
+.arrow-btn::after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-right: 3px solid white;
+  border-top: 3px solid white;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+}
+
+/* rotate the arrow when sidebar is open */
+.arrow-btn.open::after {
+  transform: rotate(-135deg);
+}
+
+  </style>
+</head>
+<body>
+    <canvas id="galaxy"></canvas>
+<div class="sidebar">
+  <h2>History</h2>
+  <ul id="history-list"></ul>
+</div>
+
+<button id="toggle-history" class="arrow-btn"></button>
+
+<div class="chat-container">
+  <div class="chat-header">Aura</div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="welcome-message" id="welcome-message">
+      Hello! Ask me anything. ✨
+    </div>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="chat-input" placeholder="Type a message...">
+    <button id="send-btn">➤</button>
+  </div>
+</div>
+
+  <script>
+// ----------------- Galaxy background -----------------
+const canvas = document.getElementById('galaxy');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+// Create stars
+for (let i = 0; i < 200; i++) {
+  stars.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.5 + 0.5,
+    s: Math.random() * 0.5 + 0.2
+  });
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  stars.forEach(star => {
+    ctx.beginPath();
+    ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+
+    star.y -= star.s;
+    if (star.y < 0) {
+      star.y = canvas.height;
+      star.x = Math.random() * canvas.width;
+    }
+  });
+
+  requestAnimationFrame(drawStars);
+}
+
+drawStars();
+
+// ----------------- Chat & History -----------------
+const chatMessages = document.getElementById("chat-messages");
+const inputField = document.getElementById("chat-input");
+const historyList = document.getElementById("history-list");
+const welcomeMessage = document.getElementById("welcome-message");
+
+const answers = {
+  "hi": "Hello there! 👋 How can I help you today?",
+  "hello": "Hey! What’s on your mind? 😊",
+  "how are you?": "I'm just a bunch of code, but thanks for asking! How about you? 😃",
+  "good morning": "Good morning! Hope you have a fantastic day ahead! ☀️",
+  "good night": "Good night! Sweet dreams! 🌙",
+  "what is ai?": "AI stands for Artificial Intelligence — machines that mimic human intelligence to perform tasks like learning, problem-solving, and decision-making. 🤓",
+  "bye": "Goodbye! Take care, and come back soon! 👋",
+  "thank you": "You're very welcome! Anytime! 🙌",
+  "can you tell a joke?": "Sure! Why don’t skeletons ever start a fight? They don’t have the guts. 🦴😂"
+};
+
+// Add message to history sidebar
+function addToHistory(question) {
+  const li = document.createElement("li");
+  li.textContent = question;
+  li.addEventListener("click", () => {
+    inputField.value = question; // put it back in input
+  });
+  historyList.appendChild(li);
+}
+
+// Main chat function
+function getAnswer() {
+  const question = inputField.value.trim().toLowerCase();
+  if (!question) return;
+
+  if (welcomeMessage) welcomeMessage.style.display = "none";
+
+  // User message
+  chatMessages.innerHTML += `<div class="chat-message user-message">${question}</div>`;
+  addToHistory(question);
+
+  // Bot response
+  setTimeout(() => {
+    const botResponse = answers[question] || "I’m not sure about that, but I’m always learning! 🧐";
+    chatMessages.innerHTML += `<div class="chat-message bot-message">${botResponse}</div>`;
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }, 500);
+
+  inputField.value = "";
+}
+
+// Event listeners
+document.getElementById("send-btn").addEventListener("click", getAnswer);
+inputField.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") getAnswer();
+});
+
+const sidebar = document.querySelector('.sidebar');
+const toggleBtn = document.getElementById('toggle-history');
+const chatContainer = document.querySelector('.chat-container');
+
+// 1️⃣ Initial state — sidebar starts closed
+let sidebarOpen = false;
+sidebar.style.transform = 'translateX(-260px)'; // hidden
+chatContainer.style.marginLeft = '0';           // full width
+toggleBtn.style.left = '0';                     // button at screen edge                  // menu icon
+
+// 2️⃣ Toggle function
+toggleBtn.addEventListener('click', () => {
+  if (sidebarOpen) {
+    // Close sidebar
+    sidebar.style.transform = 'translateX(-260px)';
+    chatContainer.style.marginLeft = '0';
+    toggleBtn.style.left = '0';
+    toggleBtn.style.transform = 'translateY(-50%) rotate(0deg)'; // ">" pointing right
+  } else {
+    // Open sidebar
+    sidebar.style.transform = 'translateX(0)';
+    chatContainer.style.marginLeft = '260px';
+    toggleBtn.style.left = '240px';
+    toggleBtn.style.transform = 'translateY(-50%) rotate(180deg)'; // ">" rotated left
+  }
+  sidebarOpen = !sidebarOpen;
+});
+
+
+
+  </script>
+</body>
+</html>
