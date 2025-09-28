@@ -4,6 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aura</title>
+<!-- Settings/Home Icon -->
+<a href="settings.html" class="settings-btn">⚙️</a>
+
+<style>
+  .settings-btn {
+    position: fixed;          /* stick to screen */
+    top: 15px;                /* distance from top */
+    right: 15px;              /* distance from right */
+    background: none;      /* background color */
+    color: #fff;              /* text color */
+    padding: 10px 12px;
+    border-radius: 50%;       /* make it round */
+    text-decoration: none;
+    font-size: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: 0.3s ease;
+    z-index: 1000;            /* always on top */
+  }
+  .settings-btn:hover {
+    background: #8d2de200;
+    transform: rotate(90deg);
+  }
+</style>
+
+
+<!-- Login Button (same style as settings) -->
+<a href="login.html" class="settings-btn login-btn" title="Login">🔑</a>
+
+<style>
+.login-btn {
+    right: 65px; /* distance from right */
+}
+
+</style>
   <style>
     /* General body styling */
    body {
@@ -62,6 +96,14 @@
     text-shadow: 0 0 8px #00ffcc,
                0 0 16px #00ffcc,
                0 0 24px #4a00e0;
+}
+
+#galaxy {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* behind all content */
 }
 
 
