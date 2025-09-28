@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings</title>
+  <style>
+    /* Body & Animated Background */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      transition: background 0.5s, color 0.5s, font-size 0.3s;
+      background: linear-gradient(-45deg, #c5abf8, #8d2de294, #00e04bb0, #7f03ec3b);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating Home Button */
+    .settings-icon {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(135deg,#4a00e0,#8e2de2);
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 50%;
+      text-decoration: none;
+      font-size: 22px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+      transition: transform 0.3s ease, background 0.3s ease;
+      z-index: 100;
+    }
+    .settings-icon:hover {
+      background: linear-gradient(135deg,#8e2de2,#4a00e0);
+      transform: rotate(90deg) scale(1.1);
+    }
+
+    h1 {
+      text-align: center;
+      padding-top: 80px;
+      color: #fff;
+    }
+
+    .settings-container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .setting-item {
+      background: rgba(255,255,255,0.95);
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .setting-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+    }
+    .setting-item label {
+      font-size: 16px;
+      color: #333;
+      cursor: pointer;
+    }
+
+    /* Back Button */
+    .back-btn {
+      display: block;
+      text-align: center;
+      width: 200px;
+      margin: 30px auto;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #4a00e0, #00ffcc);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .back-btn:hover {
+      background: linear-gradient(135deg,#8e2de2,#00ffd6);
+      transform: scale(1.05);
+    }
+
+    /* Dark mode overrides */
+    body.dark-mode {
+      background: #222;
+      color: #fff;
+    }
+    body.dark-mode .setting-item {
+      background: rgba(50,50,50,0.95);
+    }
+    body.dark-mode .setting-item label {
+      color: #fff;
+    }
+
+    select, input[type="checkbox"], button {
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      background: #8e2de2;
+      color: #fff;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+    button:hover {
+      background: #4a00e0;
+      transform: scale(1.05);
+    }
+
+    
+  </style>
+</head>
+<body>
+
+  <!-- Floating Home Icon -->
+  <a href="index.html" class="settings-icon" title="Back to Home">🏠</a>
+
+  <h1>⚙️ Website Settings</h1>
+
+  <div class="settings-container">
+    <div class="setting-item">
+  <label for="bgAnimationSelect">🌌 Background</label>
+  <select id="bgAnimationSelect">
+    <option value="gradient">Gradient</option>
+    <option value="galaxy">Galaxy</option>
+    <option value="wave">Wave</option>
+  </select>
+</div>
+
+    <div class="setting-item">
+      <label for="darkModeToggle">🌙 Dark Mode</label>
+      <input type="checkbox" id="darkModeToggle">
+    </div>
+
+    <div class="setting-item">
+      <label for="notificationsToggle">🔔 Notifications</label>
+      <input type="checkbox" id="notificationsToggle">
+    </div>
+
+    <div class="setting-item">
+      <label for="fontSizeSelect">🔠 Font Size</label>
+      <select id="fontSizeSelect">
+        <option value="small">Small</option>
+        <option value="medium" selected>Medium</option>
+        <option value="large">Large</option>
+      </select>
+    </div>
+
+    <div class="setting-item">
+      <label for="bgAnimationSelect">🌈 Background Animation</label>
+      <select id="bgAnimationSelect">
+        <option value="gradient" selected>Gradient</option>
+        <option value="particles">Particles</option>
+        <option value="wave">Wave</option>
+      </select>
+    </div>
+
+    <div class="setting-item">
+      <label for="soundToggle">🔊 Sound Effects</label>
+      <input type="checkbox" id="soundToggle">
+    </div>
+
+    <div class="setting-item">
+      <label for="languageSelect">🌐 Language</label>
+      <select id="languageSelect">
+        <option value="en" selected>English</option>
+        <option value="hi">Hindi</option>
+      </select>
+    </div>
+
+    <div class="setting-item">
+      <button id="resetSettingsBtn">🔄 Reset Settings</button>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-btn">⬅ Back to Home</a>
+
+  <script>
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const notificationsToggle = document.getElementById('notificationsToggle');
+    const fontSizeSelect = document.getElementById('fontSizeSelect');
+    const bgAnimationSelect = document.getElementById('bgAnimationSelect');
+    const soundToggle = document.getElementById('soundToggle');
+    const languageSelect = document.getElementById('languageSelect');
+    const resetSettingsBtn = document.getElementById('resetSettingsBtn');
+
+    // Load saved settings
+    darkModeToggle.checked = localStorage.getItem('darkMode') === 'true';
+    notificationsToggle.checked = localStorage.getItem('notifications') === 'true';
+    fontSizeSelect.value = localStorage.getItem('fontSize') || 'medium';
+    bgAnimationSelect.value = localStorage.getItem('bgAnimation') || 'gradient';
+    soundToggle.checked = localStorage.getItem('sound') === 'true';
+    languageSelect.value = localStorage.getItem('language') || 'en';
+
+    // Apply dark mode & font size instantly
+    if(darkModeToggle.checked) document.body.classList.add('dark-mode');
+    document.body.style.fontSize = fontSizeSelect.value === 'small' ? '14px' :
+                                   fontSizeSelect.value === 'medium' ? '16px' : '18px';
+
+    // Event listeners
+    darkModeToggle.addEventListener('change', () => {
+      localStorage.setItem('darkMode', darkModeToggle.checked);
+      darkModeToggle.checked ? document.body.classList.add('dark-mode') : document.body.classList.remove('dark-mode');
+    });
+
+    notificationsToggle.addEventListener('change', () => {
+      localStorage.setItem('notifications', notificationsToggle.checked);
+    });
+
+    fontSizeSelect.addEventListener('change', () => {
+      localStorage.setItem('fontSize', fontSizeSelect.value);
+      document.body.style.fontSize = fontSizeSelect.value === 'small' ? '14px' :
+                                     fontSizeSelect.value === 'medium' ? '16px' : '18px';
+    });
+
+    bgAnimationSelect.addEventListener('change', () => {
+      localStorage.setItem('bgAnimation', bgAnimationSelect.value);
+      alert('Background animation preference saved!');
+    });
+
+    soundToggle.addEventListener('change', () => {
+      localStorage.setItem('sound', soundToggle.checked);
+    });
+
+    languageSelect.addEventListener('change', () => {
+      localStorage.setItem('language', languageSelect.value);
+      alert('Language preference saved!');
+    });
+
+    resetSettingsBtn.addEventListener('click', () => {
+      localStorage.clear();
+      alert('All settings have been reset!');
+      location.reload();
+    });
+  </script>
+
+</body>
+</html>
