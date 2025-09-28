@@ -35,8 +35,6 @@
   background: none;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -231,7 +229,6 @@
   width: 240px;
   height: 100vh;
   background: none;
-  backdrop-filter: blur(4px);
   color: #f1f1f1;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
   padding: 20px;
@@ -321,45 +318,46 @@
 // ----------------- Galaxy background -----------------
 const canvas = document.getElementById('galaxy');
 const ctx = canvas.getContext('2d');
+let w = canvas.width = window.innerWidth;
+let h = canvas.height = window.innerHeight;
+
+window.addEventListener('resize', ()=>{
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+});
+
+// stars array
 let stars = [];
-
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resize);
-resize();
-
-// Create stars
-for (let i = 0; i < 200; i++) {
+for(let i=0;i<150;i++){
   stars.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 1.5 + 0.5,
-    s: Math.random() * 0.5 + 0.2
+    x: Math.random()*w,
+    y: Math.random()*h,
+    r: Math.random()*1.5+0.5,
+    alpha: Math.random(),
+    delta: Math.random()*0.02+0.01
   });
 }
 
-function drawStars() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+function animate(){
+  ctx.fillStyle='black';
+  ctx.fillRect(0,0,w,h);
 
-  stars.forEach(star => {
+  for(let s of stars){
     ctx.beginPath();
-    ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-    ctx.fillStyle = '#fff';
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
     ctx.fill();
 
-    star.y -= star.s;
-    if (star.y < 0) {
-      star.y = canvas.height;
-      star.x = Math.random() * canvas.width;
-    }
-  });
+    // twinkle effect
+    s.alpha += s.delta;
+    if(s.alpha <= 0){ s.alpha = 0; s.delta *= -1; }
+    if(s.alpha >= 1){ s.alpha = 1; s.delta *= -1; }
+  }
 
-  requestAnimationFrame(drawStars);
+  requestAnimationFrame(animate);
 }
 
-drawStars();
+animate();
 
 // ----------------- Chat & History -----------------
 const chatMessages = document.getElementById("chat-messages");
