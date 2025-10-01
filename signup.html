@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Snapzy — Sign Up</title>
+
+<!-- FontAwesome for icons -->
+<script src="https://kit.fontawesome.com/3e0e5eebd8.js" crossorigin="anonymous"></script>
+
+<style>
+  :root{
+    --card-width: 340px;
+    --card-radius: 20px;
+    --accent1: #a64dff;
+    --accent2: #7c4dff;
+  }
+
+  *{box-sizing:border-box}
+  body, html {
+    margin:0;
+    padding:0;
+    height:100%;
+    font-family: Inter, system-ui, sans-serif;
+    background: url("https://images.wallpapersden.com/image/download/purple-landscape-twilight-hd-dreamscape_bmZta26UmZqaraWkpJRoam1prWdlaW0.jpg") no-repeat center center/cover;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    overflow:hidden;
+  }
+
+  /* Animated title */
+  .animated-title {
+    font-size:48px;
+    font-weight:900;
+    background: linear-gradient(270deg, #ff0000, #ff6ec7, #7c4dff, #7fff4d);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 6s ease infinite;
+    text-align:center;
+    margin-bottom:18px;
+    text-shadow:0 0 15px rgba(166,77,255,0.7);
+  }
+  @keyframes gradientShift{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+
+  /* Card */
+  .signup-box{
+    width: var(--card-width);
+    background: rgba(255,255,255,0.08);
+    border-radius: var(--card-radius);
+    padding:28px;
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    box-shadow: 0 0 40px rgba(124,77,255,0.28);
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    gap:8px;
+    animation: fadeIn 0.9s ease;
+  }
+  @keyframes fadeIn { from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:none} }
+
+  .signup-box h2{
+    margin:0 0 6px 0;
+    font-size:22px;
+    font-weight:700;
+    color:#fff;
+    text-shadow:0 0 10px rgba(124,77,255,0.6);
+    text-align:center;
+  }
+  .signup-sub { font-size:13px; color:#ddd; text-align:center; margin-bottom:6px; }
+
+  /* Input container: now flex so icon+placeholder align perfectly */
+  .input-box{
+    display:flex;
+    align-items:center;           /* vertical centering */
+    gap:12px;
+    width:100%;
+    background: rgba(0,0,0,0.36);
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.12);
+    padding:8px 12px;
+    min-height:44px;             /* ensure consistent height */
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .input-box:focus-within {
+    box-shadow: 0 6px 20px rgba(124,77,255,0.14);
+    border-color: rgba(124,77,255,0.35);
+  }
+
+  .input-box input{
+    flex:1;
+    border:0;
+    background:transparent;
+    outline:none;
+    color:#fff;
+    font-size:15px;
+    padding:0;                   /* remove internal padding — container provides it */
+    line-height:1.2;
+    min-height:28px;
+  }
+
+  /* placeholder styling */
+  .input-box input::placeholder{
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* icons inside the container (no absolute positioning) */
+  .input-box .icon{
+    color:#cfcfd6;
+    font-size:16px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    min-width:18px;
+  }
+
+  .error {
+    font-size:13px;
+    color:#ff6b6b;
+    margin:2px 0 6px 4px;
+    display:none;
+    text-align:left;
+  }
+
+  button{
+    width:100%;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    border:none;
+    padding:12px 16px;
+    border-radius:12px;
+    color:white;
+    cursor:pointer;
+    font-weight:700;
+    transition: transform 0.18s, box-shadow 0.25s;
+    margin-top:6px;
+  }
+  button:hover{ transform:translateY(-3px); box-shadow:0 6px 18px rgba(124,77,255,0.35); }
+
+  .alt-link{
+    margin-top:8px;
+    color:#ddd;
+    font-size:14px;
+    text-align:center;
+  }
+  .alt-link a{ color:var(--accent2); text-decoration:none; font-weight:700; }
+  .alt-link a:hover{ text-decoration:underline; }
+
+  .success { font-size:14px; color:#7fff4d; display:none; text-align:center; margin-top:6px; }
+  /* small responsive tweak */
+  @media (max-width:400px){ .animated-title{font-size:38px} .signup-box{width:92vw} }
+
+</style>
+</head>
+<body>
+
+<div class="animated-title">Snapzy</div>
+
+<div class="signup-box" role="form" aria-labelledby="signup-heading">
+  <h2 id="signup-heading">Create Your Account</h2>
+  <div class="signup-sub">Join Snapzy — quick setup</div>
+
+  <label class="input-box" for="name">
+    <input id="name" name="name" placeholder="Full name" autocomplete="name" />
+    <i class="icon fas fa-user" aria-hidden="true"></i>
+  </label>
+  <div class="error" id="nameError">Name is required</div>
+
+  <label class="input-box" for="email">
+    <input id="email" name="email" type="email" placeholder="Email address" autocomplete="email" />
+    <i class="icon fas fa-envelope" aria-hidden="true"></i>
+  </label>
+  <div class="error" id="emailError">Enter a valid email</div>
+
+  <label class="input-box" for="password">
+    <input id="password" name="password" type="password" placeholder="Create password" autocomplete="new-password" />
+    <i id="togglePass" class="icon fas fa-eye" title="Show / hide password" aria-hidden="true"></i>
+  </label>
+  <div class="error" id="passError">Password must be at least 6 characters</div>
+
+  <label class="input-box" for="confirmPassword">
+    <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm password" autocomplete="new-password" />
+    <i class="icon fas fa-lock" aria-hidden="true"></i>
+  </label>
+  <div class="error" id="confirmError">Passwords do not match</div>
+
+  <button id="signupBtn" type="button" aria-live="polite">Create Account</button>
+  <div class="success" id="successMsg">🎉 Account created! Redirecting...</div>
+
+  <div class="alt-link">Already have an account? <a href="login.html">Log in</a></div>
+</div>
+
+<script>
+  // password toggle: switches icon and field type
+  const togglePass = document.getElementById("togglePass");
+  const passwordField = document.getElementById("password");
+  togglePass.addEventListener("click", ()=>{
+    const isHidden = passwordField.type === "password";
+    passwordField.type = isHidden ? "text" : "password";
+    togglePass.classList.toggle("fa-eye-slash", isHidden);
+    togglePass.classList.toggle("fa-eye", !isHidden);
+  });
+
+  // small helper for showing/hiding errors
+  const showError = (id, show, text) => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.textContent = text || el.textContent;
+    el.style.display = show ? "block" : "none";
+  };
+
+  document.getElementById('signupBtn').addEventListener('click', ()=>{
+    const name  = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const pass  = document.getElementById('password').value;
+    const conf  = document.getElementById('confirmPassword').value;
+
+    // reset
+    ['nameError','emailError','passError','confirmError'].forEach(id => showError(id,false));
+
+    let valid = true;
+    if(!name){ showError('nameError', true, 'Name is required'); valid = false; }
+
+    const emailRE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!email || !emailRE.test(email)){ showError('emailError', true, 'Enter a valid email'); valid = false; }
+
+    if(!pass || pass.length < 6){ showError('passError', true, 'Password must be at least 6 characters'); valid = false; }
+
+    if(pass !== conf){ showError('confirmError', true, 'Passwords do not match'); valid = false; }
+
+    if(!valid) return;
+
+    // simulated signup (demo)
+    localStorage.setItem("userData", JSON.stringify({name, email, password: pass}));
+    document.getElementById('successMsg').style.display = 'block';
+
+    // small delay so user sees the success message
+    setTimeout(()=> window.location.href = 'index.html', 1200);
+  });
+</script>
+</body>
+</html>
