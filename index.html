@@ -3,9 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aura</title>
+  <title>AURA</title>
 <!-- Settings/Home Icon -->
-<a href="settings.html" class="settings-btn">⚙️</a>
+<!-- Settings/Home Icon -->
+<a href="settings.html" class="settings-btn" title="Settings">⚙️</a>
+
+<!-- Login button next to settings -->
+<a href="login.html" class="top-login-btn" title="Login">🔑</a>
+
 
 <style>
   .settings-btn {
@@ -26,16 +31,49 @@
     background: #8d2de200;
     transform: rotate(90deg);
   }
-</style>
 
-
-<!-- Login Button (same style as settings) -->
-<a href="login.html" class="settings-btn login-btn" title="Login">🔑</a>
-
-<style>
-.login-btn {
-    right: 65px; /* distance from right */
+  /* Existing settings button */
+.settings-btn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: none;
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: 0.3s ease;
+    z-index: 1000;
 }
+
+.settings-btn:hover {
+    background: #8d2de200;
+    transform: rotate(90deg);
+}
+
+/* Login button next to settings */
+.top-login-btn {
+    position: fixed;
+    top: 15px;
+    right: 65px; /* 50px away from settings, adjust as needed */
+    background: none;
+    color: white;
+    padding: 10px 12px;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: 0.3s ease;
+    z-index: 1000;
+}
+
+.top-login-btn:hover {
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 0 12px rgba(142, 45, 226, 0.6);
+}
+
 
 </style>
   <style>
@@ -43,7 +81,7 @@
    body {
   margin: 0;
   padding: 0;
-  overflow: auto;
+  overflow: hidden;
   background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #000 100%);
   height: 100vh;
   display: flex;
@@ -107,21 +145,50 @@
 }
 
 
-/* Sidebar */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
   width: 240px;
   height: 100vh;
-  background: rgba(18, 18, 18, 0.95);
-  backdrop-filter: blur(10px);
+  background: none;
   color: #f1f1f1;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
   padding: 20px;
   z-index: 10;
   overflow-y: auto;
+
+  transform: translateX(-260px); /* start hidden */
+  transition: transform 0.3s ease-in-out;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* pushes last item to bottom */
 }
+
+.login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #8e2de2, #4a00e0);
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+
+  /* Make it sticky at bottom with some padding */
+  margin-top: auto; 
+  margin-bottom: 30px; /* add some space from bottom */
+}
+
+.login-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(142, 45, 226, 0.6);
+}
+
+
 
 .sidebar h2 {
   margin: 0 0 15px;
@@ -339,12 +406,15 @@
 <div class="sidebar">
   <h2>History</h2>
   <ul id="history-list"></ul>
+
+  <!-- LOGIN BUTTON AT BOTTOM -->
+  <a href="login.html" class="login-btn" title="Login">🔑 Login</a>
 </div>
 
 <button id="toggle-history" class="arrow-btn"></button>
 
 <div class="chat-container">
-  <div class="chat-header">Aura</div>
+  <div class="chat-header">AURA</div>
   <div class="chat-messages" id="chat-messages">
     <div class="welcome-message" id="welcome-message">
       Hello! Ask me anything. ✨
