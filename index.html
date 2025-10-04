@@ -307,7 +307,6 @@
 
     .chat-input button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
     }
 
     /* Glowing animation */
@@ -404,6 +403,27 @@
   transform: rotate(-135deg);
 }
 
+.twinkle {
+  display: inline-block;
+  animation: twinkle 1.2s infinite;
+}
+
+#send-btn {
+  padding: 14px 22px;           /* bigger touch area */
+  font-size: 22px;              /* bigger arrow */
+  border-radius: 50%;           /* round button */
+  background: linear-gradient(135deg, #4a00e0, #8e2de2);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#send-btn:hover {
+  transform: scale(1.15);
+}
+
+
   </style>
 </head>
 <body>
@@ -420,9 +440,10 @@
 <div class="chat-container">
   <div class="chat-header">AURA</div>
   <div class="chat-messages" id="chat-messages">
-    <div class="welcome-message" id="welcome-message">
-      Hello! Ask me anything. ✨
-    </div>
+<div class="welcome-message" id="welcome-message">
+  Hello! Ask me anything. <span class="twinkle">✨</span>
+</div>
+
   </div>
   <div class="chat-input">
     <input type="text" id="chat-input" placeholder="Type a message...">
