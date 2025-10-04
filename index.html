@@ -2,18 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="google-site-verification" content="googleea3ab20a5a7187a6" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AURA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
 <!-- Settings/Home Icon -->
 <!-- Settings/Home Icon -->
 <a href="settings.html" class="settings-btn" title="Settings">⚙️</a>
 
 <!-- Login button next to settings -->
-<a href="login.html" class="top-login-btn" title="Login">🔑</a>
-
+<a href="login.html" class="top-login-btn" title="Login">
+  <!-- Bigger modern user/account icon -->
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+  </svg>
+</a>
 
 <style>
+  
   .settings-btn {
     position: fixed;          /* stick to screen */
     top: 15px;                /* distance from top */
@@ -24,7 +30,6 @@
     border-radius: 50%;       /* make it round */
     text-decoration: none;
     font-size: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     transition: 0.3s ease;
     z-index: 1000;            /* always on top */
   }
@@ -44,7 +49,6 @@
     border-radius: 50%;
     text-decoration: none;
     font-size: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     transition: 0.3s ease;
     z-index: 1000;
 }
@@ -65,14 +69,12 @@
     border-radius: 50%;
     text-decoration: none;
     font-size: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     transition: 0.3s ease;
     z-index: 1000;
 }
 
 .top-login-btn:hover {
-    transform: scale(1.1) rotate(10deg);
-    box-shadow: 0 0 12px rgba(142, 45, 226, 0.6);
+    transform: scale(1.1);
 }
 
 
@@ -83,7 +85,7 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #000 100%);
+  background: #222;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -91,23 +93,12 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* Make canvas cover the whole background */
-#galaxy {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1; /* behind everything */
-  width: 100%;
-  height: 100%;
-}
-
    .chat-container {
   width: 100%;
   max-width: 900px;
   height: 90vh;
-  background: none;
+  background: #222;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -132,19 +123,10 @@
     letter-spacing: 1px;
 
     /* Glowing text */
-    text-shadow: 0 0 8px #00ffcc,
-               0 0 16px #00ffcc,
-               0 0 24px #4a00e0;
+    text-shadow: 0 0 1px #00ffcc,
+               0 0 12px #00ffcc,
+               0 0 20px #4a00e0;
 }
-
-#galaxy {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1; /* behind all content */
-}
-
 
 .sidebar {
   position: fixed;
@@ -152,7 +134,7 @@
   left: 0;
   width: 240px;
   height: 100vh;
-  background: none;
+  background: #121212;
   color: #f1f1f1;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
   padding: 20px;
@@ -168,25 +150,47 @@
 }
 
 .login-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px;
+  gap: 10px;
+  padding: 14px 22px;
   border-radius: 12px;
   background: linear-gradient(90deg, #8e2de2, #4a00e0);
+  border: none;
   color: white;
   font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
   text-decoration: none;
-  transition: 0.3s;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: auto;
+  margin-bottom: 30px; /* spacing from bottom */
+}
 
-  /* Make it sticky at bottom with some padding */
-  margin-top: auto; 
-  margin-bottom: 30px; /* add some space from bottom */
+.login-btn::after {
+  content: '';
+  position: absolute;
+  left: -50%;
+  top: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
+  pointer-events: none;
 }
 
 .login-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 10px rgba(142, 45, 226, 0.6);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(111, 45, 189, 0.4);
+}
+
+.login-btn:hover::after {
+  left: 0;
+  top: 0;
 }
 
 
@@ -338,7 +342,7 @@
   left: 0;
   width: 240px;
   height: 100vh;
-  background: none;
+  background: #121212;
   color: #f1f1f1;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
   padding: 20px;
@@ -403,7 +407,6 @@
   </style>
 </head>
 <body>
-    <canvas id="galaxy"></canvas>
 <div class="sidebar">
   <h2>History</h2>
   <ul id="history-list"></ul>
@@ -428,50 +431,6 @@
 </div>
 
   <script>
-// ----------------- Galaxy background -----------------
-const canvas = document.getElementById('galaxy');
-const ctx = canvas.getContext('2d');
-let w = canvas.width = window.innerWidth;
-let h = canvas.height = window.innerHeight;
-
-window.addEventListener('resize', ()=>{
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
-});
-
-// stars array
-let stars = [];
-for(let i=0;i<150;i++){
-  stars.push({
-    x: Math.random()*w,
-    y: Math.random()*h,
-    r: Math.random()*1.5+0.5,
-    alpha: Math.random(),
-    delta: Math.random()*0.02+0.01
-  });
-}
-
-function animate(){
-  ctx.fillStyle='black';
-  ctx.fillRect(0,0,w,h);
-
-  for(let s of stars){
-    ctx.beginPath();
-    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-    ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
-    ctx.fill();
-
-    // twinkle effect
-    s.alpha += s.delta;
-    if(s.alpha <= 0){ s.alpha = 0; s.delta *= -1; }
-    if(s.alpha >= 1){ s.alpha = 1; s.delta *= -1; }
-  }
-
-  requestAnimationFrame(animate);
-}
-
-animate();
-
 // ----------------- Chat & History -----------------
 const chatMessages = document.getElementById("chat-messages");
 const inputField = document.getElementById("chat-input");
