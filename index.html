@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <!-- Settings/Home Icon -->
-<!-- Settings/Home Icon -->
 <a href="settings.html" class="settings-btn" title="Settings">⚙️</a>
 
 <!-- Login button next to settings -->
@@ -84,7 +83,7 @@
    body {
   margin: 0;
   padding: 0;
-  overflow: auto;
+  overflow: hidden;
   background: #222;
   height: 100vh;
   display: flex;
@@ -423,10 +422,28 @@
   transform: scale(1.15);
 }
 
+#bg-toggle {
+  background: none;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  padding: 10px 12px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+#bg-toggle:hover {
+  transform: scale(1.2);
+}
+
 
   </style>
 </head>
 <body>
+  <button id="bg-toggle" style="position: fixed; top: 15px; right: 110px; z-index:1000;">🌓</button>
+
 <div class="sidebar">
   <h2>History</h2>
   <ul id="history-list"></ul>
@@ -450,6 +467,7 @@
     <button id="send-btn">➤</button>
   </div>
 </div>
+
 
   <script>
 // ----------------- Chat & History -----------------
@@ -535,7 +553,27 @@ toggleBtn.addEventListener('click', () => {
   sidebarOpen = !sidebarOpen;
 });
 
+const bgToggle = document.getElementById('bg-toggle');
+let isDark = true; // starts dark
 
+bgToggle.addEventListener('click', () => {
+  if (isDark) {
+    document.body.style.background = '#fff';
+    document.body.style.color = '#000';
+    chatContainer.style.background = '#fff';
+    chatContainer.querySelector('.chat-header').style.color = '#000';
+    // Make welcome message text black on light background
+    welcomeMessage.style.color = '#000';
+  } else {
+    document.body.style.background = '#222';
+    document.body.style.color = '#fff';
+    chatContainer.style.background = '#222';
+    chatContainer.querySelector('.chat-header').style.color = '#00ffcc';
+    // Restore welcome message glow color
+    welcomeMessage.style.color = '#00ffcc';
+  }
+  isDark = !isDark;
+});
 
   </script>
 </body>
