@@ -84,7 +84,7 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: #222;
+  background: url('https://wallpapercg.com/download/windows-11-3840x2400-8710.jpg') no-repeat center/cover;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -92,20 +92,25 @@
   font-family: 'Poppins', sans-serif;
 }
 
-   .chat-container {
+.chat-container {
   width: 100%;
   max-width: 900px;
   height: 90vh;
-  background: #222;
+
+  /* Gradient background 🌈 */
+  background: none;
+  backdrop-filter: blur(20px);
+
   border-radius: 20px;
+
   display: flex;
   flex-direction: column;
   overflow: hidden;
   position: relative;
 
-  /* ADD THIS */
-  margin-left: 0px;           /* start with sidebar open */
-  transition: margin-left 0.3s ease; /* smooth shift */
+  /* Sidebar slide setup */
+  margin-left: 0px;                /* start aligned with left */
+  transition: margin-left 0.3s ease; /* smooth slide when toggled */
 }
 
 
@@ -340,7 +345,8 @@
   left: 0;
   width: 240px;
   height: 100vh;
-  background: #121212;
+  background: none;
+  backdrop-filter: blur(20px);
   color: #f1f1f1;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
   padding: 20px;
@@ -442,8 +448,6 @@
   </style>
 </head>
 <body>
-  <button id="bg-toggle" style="position: fixed; top: 15px; right: 110px; z-index:1000;">🌓</button>
-
 <div class="sidebar">
   <h2>History</h2>
   <ul id="history-list"></ul>
@@ -551,28 +555,6 @@ toggleBtn.addEventListener('click', () => {
     toggleBtn.style.transform = 'translateY(-50%) rotate(180deg)'; // ">" rotated left
   }
   sidebarOpen = !sidebarOpen;
-});
-
-const bgToggle = document.getElementById('bg-toggle');
-let isDark = true; // starts dark
-
-bgToggle.addEventListener('click', () => {
-  if (isDark) {
-    document.body.style.background = '#fff';
-    document.body.style.color = '#000';
-    chatContainer.style.background = '#fff';
-    chatContainer.querySelector('.chat-header').style.color = '#000';
-    // Make welcome message text black on light background
-    welcomeMessage.style.color = '#000';
-  } else {
-    document.body.style.background = '#222';
-    document.body.style.color = '#fff';
-    chatContainer.style.background = '#222';
-    chatContainer.querySelector('.chat-header').style.color = '#00ffcc';
-    // Restore welcome message glow color
-    welcomeMessage.style.color = '#00ffcc';
-  }
-  isDark = !isDark;
 });
 
   </script>
