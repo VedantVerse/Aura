@@ -7,124 +7,132 @@
   <title>Settings</title>
   <style>
     /* Body & Animated Background */
+/* Body stays same */
 body {
-  font-family: 'Poppins', sans-serif;  /* keep your font */
-  margin: 0;                           /* remove default spacing */
-  padding: 0;                          /* remove default padding */
-  color: #1E1E1E;                      /* text color */
-  height: 100vh;                        /* make it full viewport height */
-  background: url('https://wallpapercg.com/download/windows-11-3840x2400-8710.jpg') no-repeat center/cover; /* nice full-screen background */
-  background-attachment: fixed;        /* optional: keeps the background fixed on scroll */
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #fff; /* text color now bright for glass contrast */
+  height: 100vh;
+  background: url('https://wallpapercg.com/download/windows-11-3840x2400-8710.jpg') no-repeat center/cover;
+  background-attachment: fixed;
 }
 
+/* Floating Home Button - glassy */
+.settings-icon {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px) saturate(180%);
+  color: #fff;
+  padding: 12px 14px;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 22px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  z-index: 100;
+}
+.settings-icon:hover {
+  transform: rotate(90deg) scale(1.1);
+}
 
-    /* Floating Home Button */
-    .settings-icon {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      background: none;
-      backdrop-filter: blur(20px);
-      color: #fff;
-      padding: 12px 14px;
-      border-radius: 50%;
-      text-decoration: none;
-      font-size: 22px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.25);
-      transition: transform 0.3s ease, background 0.3s ease;
-      z-index: 100;
-    }
-    .settings-icon:hover {
-      background: none;
-      transform: rotate(90deg) scale(1.1);
-    }
+/* Headings */
+h1 {
+  text-align: center;
+  padding-top: 80px;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
 
-    h1 {
-      text-align: center;
-      padding-top: 80px;
-      color: #fff;
-    }
+/* Container */
+.settings-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
 
-    .settings-container {
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 0 20px;
-    }
+/* Glassy Setting Item */
+.setting-item {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px) saturate(180%);
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+.setting-item:hover {
+  transform: translateY(-5px);
+  background: rgba(255,255,255,0.1);
+}
 
-    .setting-item {
-      background: none;
-      backdrop-filter: blur(20px);
-      padding: 20px;
-      margin: 15px 0;
-      border-radius: 12px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .setting-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.25);
-    }
-    .setting-item label {
-      font-size: 16px;
-      color: #ffffff;
-      cursor: pointer;
-    }
+.setting-item label {
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  text-shadow: 0 0 5px rgba(255,255,255,0.3);
+}
 
-    /* Back Button */
-    .back-btn {
-      display: block;
-      text-align: center;
-      width: 200px;
-      margin: 30px auto;
-      padding: 12px 20px;
-      background: linear-gradient(135deg, #4a00e0, #00ffcc);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 30px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      font-weight: bold;
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-    .back-btn:hover {
-      background: none;
-      backdrop-filter: blur(20px);
-      color: rgb(255, 255, 255);
-      transform: scale(1.05);
-    }
+/* Inputs / selects */
+select, input[type="checkbox"], button {
+  cursor: pointer;
+  font-size: 14px;
+}
 
-    /* Dark mode overrides */
-    body.dark-mode {
-      background: #222;
-      color: #fff;
-    }
-    body.dark-mode .setting-item {
-      background: rgba(50,50,50,0.95);
-    }
-    body.dark-mode .setting-item label {
-      color: #fff;
-    }
+/* Glassy Buttons */
+button {
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px) saturate(180%);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease;
+}
+button:hover {
+  transform: scale(1.05);
+  background: rgba(255,255,255,0.1);
+}
 
-    select, input[type="checkbox"], button {
-      cursor: pointer;
-      font-size: 14px;
-    }
+/* Back Button */
+.back-btn {
+  display: block;
+  text-align: center;
+  width: 220px;
+  margin: 30px auto;
+  padding: 14px 20px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px) saturate(180%);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.back-btn:hover {
+  transform: scale(1.05);
+  background: rgba(255,255,255,0.1);
+}
 
-    button {
-      border: none;
-      border-radius: 8px;
-      padding: 8px 12px;
-      background: #8e2de2;
-      color: #fff;
-      transition: transform 0.2s ease, background 0.3s ease;
-    }
-    button:hover {
-      background: none;
-      backdrop-filter: blur(20px);
-      transform: scale(1.05);
-    }
+/* Dark mode (glass variations) */
+body.dark-mode {
+  background: url('https://wallpapercg.com/download/windows-11-3840x2400-8710.jpg') no-repeat center/cover;
+  color: #fff;
+}
+body.dark-mode .setting-item {
+  background: rgba(0,0,0,0.4);
+  box-shadow: 0 8px 32px rgba(255,255,255,0.1);
+}
+body.dark-mode button {
+  background: rgba(0,0,0,0.4);
+}
 
     
   </style>
