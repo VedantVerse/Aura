@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aura Profile ✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+  body {
+    min-height: 100vh;
+    background: url('https://4kwallpapers.com/images/wallpapers/windows-11-stock-grey-abstract-dark-background-3840x2400-8957.png') no-repeat center center/cover;
+    overflow-x: hidden;
+    color: #fff;
+    position: relative;
+  }
+
+  /* Twinkling star overlay */
+  .stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: transparent;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle 3s infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); }
+  }
+
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 50px auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Glass effect */
+  .glass {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 30px;
+    color: #fff;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .glass:hover {
+    transform: translateY(-5px);
+  }
+
+  /* Sidebar */
+  .profile-sidebar { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; }
+  .profile-sidebar img {
+    width: 120px; height: 120px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.3);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .profile-sidebar h2 { font-size: 24px; font-weight: 700; }
+  .profile-sidebar p { font-size: 14px; color: #aaa; }
+  .profile-sidebar button {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3);
+    padding: 10px 20px; border-radius: 10px; color: #fff; cursor: pointer;
+    transition: 0.3s;
+  }
+  .profile-sidebar button:hover { background: rgba(255,255,255,0.2); }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+  .tabs button {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: #fff; padding: 8px 15px; border-radius: 10px; cursor: pointer;
+    transition: 0.3s;
+  }
+  .tabs button.active, .tabs button:hover { background: rgba(255,255,255,0.25); }
+
+  /* Main content sections */
+  .profile-main { display: flex; flex-direction: column; gap: 30px; }
+  .section { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); }
+  .section .glass h3 { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+  .section .glass p { font-size: 14px; color: #ddd; }
+
+  /* Hide inactive sections */
+  .section.inactive { display: none; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<div class="container">
+  <!-- Sidebar -->
+  <div class="profile-sidebar glass">
+    <img src="https://upload.wikimedia.org/wikipedia/en/e/e6/The_Weeknd_-_Blinding_Lights.png" alt="Profile Picture">
+    <h2>Vedant</h2>
+    <p>@auragamer</p>
+    <button>Edit Profile</button>
+    <button>Settings</button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="profile-main">
+    <div class="tabs">
+      <button class="tab-btn active" data-target="overview">Overview</button>
+      <button class="tab-btn" data-target="posts">Posts</button>
+      <button class="tab-btn" data-target="friends">Friends</button>
+      <button class="tab-btn" data-target="achievements">Achievements</button>
+      <button class="tab-btn" data-target="gallery">Gallery</button>
+      <button class="tab-btn" data-target="stats">Stats</button>
+    </div>
+
+    <!-- Sections -->
+    <div id="overview" class="section">
+      <div class="glass"><h3>Bio</h3><p>Hey! I’m Vedant, love coding, gaming, and making dark UI websites 😎</p></div>
+      <div class="glass"><h3>Contact</h3><p>Email: vedant@aura.com</p><p>Discord: Vedant#1234</p></div>
+      <div class="glass"><h3>Location</h3><p>Narmadapuram, India 🌏</p></div>
+    </div>
+
+    <div id="posts" class="section inactive">
+      <div class="glass"><h3>My Posts</h3><p>All your posts appear here...</p></div>
+      <div class="glass"><h3>Favorites</h3><p>Posts you liked...</p></div>
+    </div>
+
+    <div id="friends" class="section inactive">
+      <div class="glass"><h3>Friends List</h3><p>All your friends appear here...</p></div>
+      <div class="glass"><h3>Online</h3><p>Friends currently online...</p></div>
+    </div>
+
+    <div id="achievements" class="section inactive">
+      <div class="glass"><h3>Achievements</h3><p>12 unlocked</p></div>
+      <div class="glass"><h3>Badges</h3><p>Special rewards earned!</p></div>
+    </div>
+
+    <div id="gallery" class="section inactive">
+      <div class="glass"><h3>Photos</h3><p>Your screenshots and pics</p></div>
+      <div class="glass"><h3>Videos</h3><p>Game clips</p></div>
+      <div class="glass"><h3>Media</h3><p>Other media files</p></div>
+    </div>
+
+    <div id="stats" class="section inactive">
+      <div class="glass"><h3>Posts</h3><p>124</p></div>
+      <div class="glass"><h3>Followers</h3><p>2.3k</p></div>
+      <div class="glass"><h3>Following</h3><p>180</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Create random stars
+  const starsContainer = document.querySelector('.stars');
+  for(let i=0;i<100;i++){
+    const star = document.createElement('div');
+    star.classList.add('star');
+    star.style.top = Math.random()*100 + '%';
+    star.style.left = Math.random()*100 + '%';
+    star.style.animationDuration = (Math.random()*3 + 2) + 's';
+    starsContainer.appendChild(star);
+  }
+
+  // Tab switching
+  const tabs = document.querySelectorAll('.tab-btn');
+  const sections = document.querySelectorAll('.section');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      sections.forEach(sec => sec.classList.add('inactive'));
+      document.getElementById(tab.dataset.target).classList.remove('inactive');
+    });
+  });
+</script>
+
+</body>
+</html>
