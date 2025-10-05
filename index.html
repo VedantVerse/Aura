@@ -281,8 +281,9 @@
     .chat-input input {
       flex: 1;
       padding: 10px;
-      border: 2px solid #2a2a2a;
-      background: #121212;
+      border: 1px solid #00ffccbb;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px) saturate(180%);
       color: #f1f1f1;
       border-radius: 20px;
       outline: none;
@@ -291,38 +292,8 @@
     }
 
     .chat-input input:focus {
-      border-color: #00ffcc;
-      box-shadow: 0 0 8px #00ffcc;
-    }
-
-    .chat-input button {
-      padding: 10px 25px;
-      margin-left: 10px;
-      background: linear-gradient(135deg, #4a00e0, #00ffcc);
-      color: #fff;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .chat-input button:hover {
-      transform: translateY(-2px);
-    }
-
-    /* Glowing animation */
-    @keyframes glowAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Fade-in animation */
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(10px); }
-      100% { opacity: 1; transform: translateY(0); }
+      border-color: transparent;
+      background: rgba(255,255,255,0.1);
     }
 
     /* Scrollbar styling */
@@ -416,7 +387,8 @@
   padding: 14px 22px;           /* bigger touch area */
   font-size: 22px;              /* bigger arrow */
   border-radius: 50%;           /* round button */
-  background: linear-gradient(135deg, #4a00e0, #8e2de2);
+  background: none;
+  backdrop-filter: blur(20px);
   color: #fff;
   border: none;
   cursor: pointer;
