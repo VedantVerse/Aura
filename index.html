@@ -10,7 +10,7 @@
 <a href="settings.html" class="settings-btn" title="Settings">⚙️</a>
 
 <!-- Login button next to settings -->
-<a href="login.html" class="top-login-btn" title="Login">
+<a href="profile.html" class="top-login-btn" title="Login">
   <!-- Bigger modern user/account icon -->
   <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
@@ -84,7 +84,6 @@
   margin: 0;
   padding: 0;
   overflow: auto;
-  background: url('https://wallpapercg.com/download/windows-11-3840x2400-8710.jpg') no-repeat center/cover;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -99,7 +98,7 @@
 
   /* Gradient background 🌈 */
   background: none;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(0px);
 
   border-radius: 20px;
 
@@ -444,10 +443,32 @@
   transform: scale(1.2);
 }
 
+.animated-bg {
+  position: fixed;
+  top: -20%;
+  left: -20%;
+  width: 140%;
+  height: 140%;
+  background: url('https://4kwallpapers.com/images/walls/thumbs_2t/8710.jpg') center/cover no-repeat;
+  filter: blur(15px) brightness(0.7) saturate(1.2);
+  animation: moveBackground 60s linear infinite alternate;
+  z-index: -2; /* behind all other elements */
+}
+
+@keyframes moveBackground {
+  0% { transform: translate(0,0) scale(1); }
+  25% { transform: translate(-5%, 3%) scale(1.02); }
+  50% { transform: translate(4%, -5%) scale(1.05); }
+  75% { transform: translate(-3%, 4%) scale(1.03); }
+  100% { transform: translate(0,0) scale(1); }
+}
+
 
   </style>
 </head>
 <body>
+  <div class="animated-bg"></div>
+
 <div class="sidebar">
   <h2>History</h2>
   <ul id="history-list"></ul>
@@ -489,7 +510,7 @@
   if(localStorage.getItem("loggedIn") !== "true") {
     window.location.href = "login.html";
   }
-
+  
   const username = localStorage.getItem("username") || "Guest";
   // You can display `username` in your welcome message
 
