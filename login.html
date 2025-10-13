@@ -15,6 +15,7 @@
 
     body {
       display: flex;
+      background: url(./windows-11-dark-mode-abstract-background-black-background-3840x2160-8710.jpg);
       justify-content: center;
       align-items: center;
       min-height: 100vh;
@@ -153,14 +154,6 @@
   <script src="https://kit.fontawesome.com/3e0e5eebd8.js" crossorigin="anonymous"></script>
 
  <script>
-const images = [
-  "https://cdn.wallpapersafari.com/68/11/t9vZSU.jpg",
-  "https://a-static.besthdwallpaper.com/sunrise-anime-scenery-art-wallpaper-2560x1600-90530_7.jpg",
-  "https://a-static.besthdwallpaper.com/girl-sitting-city-top-in-front-of-sunset-wallpaper-2880x1800-121127_8.jpg",
-];
-
-document.body.style.background = `url('${images[Math.floor(Math.random() * images.length)]}') no-repeat center center/cover`;
-
 // On page load, check if already logged in
 if(localStorage.getItem("loggedIn") === "true") {
   // Already logged in → go to index.html
