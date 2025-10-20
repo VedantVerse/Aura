@@ -248,21 +248,48 @@
       word-wrap: break-word;
     }
 
-    .user-message {
-      align-self: flex-end;
-      background: linear-gradient(135deg, #4a00e0, #00ffcc);
-      color: #fff;
-      border-bottom-right-radius: 5px;
-      box-shadow: 0 3px 10px rgba(0, 255, 204, 0.4);
-    }
+.user-message {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #8e2de2, #4a00e0); /* purple-blue gradient */
+  color: #fff;
+  border-radius: 18px 18px 5px 18px;
+  animation: popIn 0.4s ease-out;
+  padding: 12px 18px;
+  transition: all 0.3s ease-in-out;
+}
+.bot-message {
+  align-self: flex-start;
+  background: rgba(40, 40, 40, 0.4); /* translucent dark glass */
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  color: #e8faff;
+  border-radius: 18px 18px 18px 5px;
+  border: 1px solid rgba(0, 255, 204, 0.2);
+  animation: popIn 0.4s ease-out;
+  padding: 12px 18px;
+  transition: all 0.3s ease-in-out;
+}
 
-    .bot-message {
-      align-self: flex-start;
-      background: #1e1e1e;
-      color: #f1f1f1;
-      border-bottom-left-radius: 5px;
-      box-shadow: 0 3px 8px rgba(255, 255, 255, 0.05);
-    }
+/* 💫 Cute message pop-up animation */
+@keyframes popIn {
+  0% {
+    transform: scale(0.8) translateY(20px);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.05) translateY(-5px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Apply animation to chat messages */
+.chat-message {
+  animation: popIn 0.4s ease-out;
+}
+
 
     .welcome-message {
       text-align: center;
@@ -525,19 +552,28 @@ function getAnswer() {
 
   if (welcomeMessage) welcomeMessage.style.display = "none";
 
-  // User message
-  chatMessages.innerHTML += `<div class="chat-message user-message">${question}</div>`;
-  addToHistory(question);
+  // 💬 Create user message bubble
+  const userMsg = document.createElement("div");
+  userMsg.classList.add("chat-message", "user-message");
+  userMsg.textContent = question;
+  chatMessages.appendChild(userMsg);
 
-  // Bot response
+  addToHistory(question);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  // 🤖 Create bot reply after delay
   setTimeout(() => {
     const botResponse = answers[question] || "I’m not sure about that, but I’m always learning! 🧐";
-    chatMessages.innerHTML += `<div class="chat-message bot-message">${botResponse}</div>`;
+    const botMsg = document.createElement("div");
+    botMsg.classList.add("chat-message", "bot-message");
+    botMsg.textContent = botResponse;
+    chatMessages.appendChild(botMsg);
     chatMessages.scrollTop = chatMessages.scrollHeight;
-  }, 500);
+  }, 600);
 
   inputField.value = "";
 }
+
 
 // Event listeners
 document.getElementById("send-btn").addEventListener("click", getAnswer);
